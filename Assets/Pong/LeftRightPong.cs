@@ -54,7 +54,7 @@ public class LeftRightPong : NetworkBehaviour
         sr.color = newColor;
     }
 
-    [Command]
+    [ClientRpc]
     private void RotatePaddle()
     {
         if (Mathf.Abs(transform.position.y) % 5 == 0 && transform.position.y != 0)
