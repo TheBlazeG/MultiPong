@@ -79,7 +79,7 @@ public class PlayerChat : NetworkBehaviour
             if (hit.collider.gameObject.TryGetComponent<Bubble>(out Bubble bubu))
             {
                 bubu.WasHit();
-                Debug.Log("le peguÅEa la burbuja");
+                Debug.Log("le peguÈ a la burbuja");
             }
         }
     }
