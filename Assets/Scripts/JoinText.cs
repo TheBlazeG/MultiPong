@@ -2,129 +2,53 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using TMPro;
-using Unity.VisualScripting;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/guides/networkbehaviour
 	API Reference: https://mirror-networking.com/docs/api/Mirror.NetworkBehaviour.html
 */
 
-public class PlayerChat : NetworkBehaviour
+public class JoinText : NetworkBehaviour
 {
-    public TextMeshPro info;
-    private string mensaje;
     [SyncVar(hook = nameof(UpdateUI))]
-    public string visibleMessage;
-
-    public GameObject bubble;
-
-    [SyncVar(hook = nameof(SetColor))]
-    public Color color;
-    public SpriteRenderer sr;
-
-    public LayerMask bubbleMask;
+    public string playerJoinText;
+    [SerializeField] TextMeshPro text;
 
     #region Unity Callbacks
 
     /// <summary>
-    /// Add your validation code here after the ba  se.OnValidate(); call.
+    /// Add your validation code here after the base.OnValidate(); call.
     /// </summary>
     protected override void OnValidate()
     {
         base.OnValidate();
     }
 
-    private void Update()
+    // NOTE: Do not put objects in DontDestroyOnLoad (DDOL) in Awake.  You can do that in Start instead.
+    void Awake()
     {
-        if (!isLocalPlayer) return;
-        foreach(char c in Input.inputString)
-        {
-            switch (c)
-            {
-                case '\b':
-                    if (mensaje.Length!=0)
-                    {
-                        mensaje = mensaje.Substring(0, mensaje.Length - 1);
-                    }
-                    break;
-                case '\n':
-                case '\r':
-                    CommandSendMessage(mensaje);
-                    mensaje = "";
-                    break;
-
-                default:
-                    mensaje += c;
-                    break;
-            }
-            commandUpdateUI(mensaje);
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            CommandShoot(ray.origin, ray.direction);
-        }
-        
     }
 
-    [Command]
-    private void CommandShoot(Vector2 origen, Vector2 direccion)
+    void Start()
     {
-        RaycastHit2D hit = Physics2D.Raycast(origen, direccion, 100, bubbleMask);
-        
-
-        if (hit)
-        {
-            if (hit.collider.gameObject.TryGetComponent<Bubble>(out Bubble bubu))
-            {
-                bubu.WasHit();
-                Debug.Log("le peguÅEa la burbuja");
-            }
-        }
+        commandUpdateUI("Player has joined");
+        Invoke("EraseText", 2);
     }
 
-    #region UIUpdate
-
-    [Command]
+    #endregion
+    [Command(requiresAuthority = false)]
     private void commandUpdateUI(string s)
     {
-        visibleMessage = s;
+        playerJoinText = s;
     }
     private void UpdateUI(string oldMessage, string newMessage)
     {
-        info.text = newMessage;
+        text.text = newMessage;
     }
-
-    #endregion
-
-    [Command]
-    private void CommandSendMessage(string msj) 
+    [Command(requiresAuthority = false)]
+    private void EraseText()
     {
-        var bub = Instantiate(bubble, new Vector2(Random.Range(-4, 4), -7), Quaternion.identity);
-        NetworkServer.Spawn(bub);
-        ClientSendMessage(msj, bub.GetComponent<Bubble>());
-        
-    }
-    [ClientRpc]
-    private void ClientSendMessage(string msj, Bubble bub)
-    {
-        
-        bub.GetComponent<Bubble>().Initialize(msj);
-    }
-
-    #endregion
-
-    [Command]
-    private void CommandSetColor(Color newColor)
-    {
-        color = newColor;
-    }
-
-
-    private void SetColor(Color oldColor, Color newColor)
-    {
-        sr.color = newColor;
+        playerJoinText = string.Empty;
     }
 
     #region Start & Stop Callbacks
@@ -146,12 +70,7 @@ public class PlayerChat : NetworkBehaviour
     /// Called on every NetworkBehaviour when it is activated on a client.
     /// <para>Objects on the host have this function called, as there is a local client on the host. The values of SyncVars on object are guaranteed to be initialized correctly with the latest state from the server when this function is called on the client.</para>
     /// </summary>
-    public override void OnStartClient() 
-    {
-
-        CommandSetColor(GameObject.FindFirstObjectByType<PlayerInfo>().color);
-    
-    }
+    public override void OnStartClient() { }
 
     /// <summary>
     /// This is invoked on clients when the server has caused this object to be destroyed.

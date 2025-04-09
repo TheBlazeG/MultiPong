@@ -1,5 +1,7 @@
 using UnityEngine;
 using Mirror;
+using TMPro;
+using Unity.VisualScripting;
 
 /*
 	Documentation: https://mirror-networking.gitbook.io/docs/guides/networkbehaviour
@@ -12,6 +14,8 @@ public class LeftRightPong : NetworkBehaviour
     [SyncVar(hook = nameof(SetColor))]
     public Color color;
     public SpriteRenderer sr;
+   
+
     #region Unity Callbacks
 
     /// <summary>
@@ -29,8 +33,8 @@ public class LeftRightPong : NetworkBehaviour
 
     void Start()
     {
-        
-        
+       
+
     }
 
     private void Update()
@@ -66,6 +70,11 @@ public class LeftRightPong : NetworkBehaviour
         }
     }
 
+    [Command]
+    
+
+    
+
     #region Start & Stop Callbacks
 
     /// <summary>
@@ -88,6 +97,7 @@ public class LeftRightPong : NetworkBehaviour
     public override void OnStartClient() 
     {
         CommandSetColor(GameObject.FindFirstObjectByType<PlayerInfo>().color);
+       
         RotatePaddle();
     }
 

@@ -13,8 +13,14 @@ using TMPro;
 public class Pong4 : NetworkManager
 {
     GameObject ball;
-    [SerializeField]TextMeshPro text;
+
+    [SerializeField]
     
+
+    int players;
+    
+
+
     // Overrides the base singleton so we don't
     // have to cast to this type everywhere.
     public static new Pong4 singleton => (Pong4)NetworkManager.singleton;
@@ -137,6 +143,8 @@ public class Pong4 : NetworkManager
     public override void OnServerReady(NetworkConnectionToClient conn)
     {
         base.OnServerReady(conn);
+        
+       
     }
 
     /// <summary>
@@ -148,6 +156,7 @@ public class Pong4 : NetworkManager
     {
         base.OnServerAddPlayer(conn);
 
+        players = numPlayers;
         // spawn ball if two players
         if (numPlayers == 4)
         {
@@ -160,7 +169,7 @@ public class Pong4 : NetworkManager
             conn.identity.gameObject.transform.Rotate(0f, 0f, 90f, Space.Self);
             Debug.Log(conn.identity);
         }
-        text.text = "Player " + numPlayers+ " has joined";
+        
     }
 
     /// <summary>
@@ -191,6 +200,15 @@ public class Pong4 : NetworkManager
     public override void OnServerTransportException(NetworkConnectionToClient conn, Exception exception) { }
 
     #endregion
+
+    //private void EraseText()
+    //{
+    //    joinText.playerJoinText = string.Empty;
+    //}
+    //private void ChangeText()
+    //{
+    //    joinText.playerJoinText = "Player " + players + " has joined";
+    //}
 
     #region Client System Callbacks
 
@@ -251,7 +269,10 @@ public class Pong4 : NetworkManager
     /// <summary>
     /// This is invoked when the client is started.
     /// </summary>
-    public override void OnStartClient() { }
+    public override void OnStartClient() {
+       
+
+    }
 
     /// <summary>
     /// This is called when a host is stopped.
