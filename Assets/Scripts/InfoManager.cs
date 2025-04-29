@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class InfoManager : MonoBehaviour
 {
-    ServerInfo info;
+    public ServerInfo info;
     public TextMeshProUGUI playerText;
+
+    private void Start()
+    {
+        info.PlayerCapacity=2;
+        playerText.text = info.PlayerCapacity.ToString();
+    }
 
     public void ChangeServerName(string newName)
     {
@@ -38,7 +44,7 @@ public class InfoManager : MonoBehaviour
         if (info.Name!= string.Empty)
         {
             Debug.Log("Start Server!!");
-            //NLSNetworkManager.singleton.StartHost();
+            NLSNetworkManager.singleton.StartHost();
             gameObject.SetActive(false);
         }
         else

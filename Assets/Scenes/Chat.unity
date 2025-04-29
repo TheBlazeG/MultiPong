@@ -154,7 +154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 33.487263}
+  m_AnchoredPosition: {x: 0, y: -40}
   m_SizeDelta: {x: 300.5383, y: 228.9065}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &107222708
@@ -791,6 +791,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb94a80cbb68a744287b813189a6c252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  info:
+    Name: 
+    Port: 0
+    PlayerCount: 0
+    PlayerCapacity: 0
+    ExtraInfo: 
   playerText: {fileID: 1279595292}
 --- !u!1 &442374344
 GameObject:
@@ -2031,8 +2037,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -46.4}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 0.2, y: -56}
+  m_SizeDelta: {x: 31.6203, y: 48.1328}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1279595292
 MonoBehaviour:
@@ -2121,7 +2127,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 74.468414, y: 0, z: 70.45865, w: 0}
+  m_margin: {x: 0.24698639, y: 0, z: 0.6718235, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2873,10 +2879,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1775884846}
-  - component: {fileID: 1775884845}
-  - component: {fileID: 1775884844}
-  - component: {fileID: 1775884843}
   - component: {fileID: 1775884847}
+  - component: {fileID: 1775884848}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -2884,98 +2888,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1775884843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1775884842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88c37d3deca7a834d80cfd8d3cfcc510, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  networkDiscovery: {fileID: 1775884844}
---- !u!114 &1775884844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1775884842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c761308e733c51245b2e8bb4201f46dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enableActiveDiscovery: 1
-  BroadcastAddress: 
-  serverBroadcastListenPort: 47777
-  ActiveDiscoveryInterval: 3
-  transport: {fileID: 1775884847}
-  OnServerFound:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1775884843}
-        m_TargetAssemblyTypeName: Mirror.Discovery.NetworkDiscoveryHUD, Mirror.Components
-        m_MethodName: OnDiscoveredServer
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  secretHandshake: 2150519007006455468
---- !u!114 &1775884845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1775884842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aab4c8111b7c411b9b92cf3dbc5bd4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dontDestroyOnLoad: 1
-  runInBackground: 1
-  headlessStartMode: 0
-  editorAutoStart: 0
-  sendRate: 60
-  offlineScene: 
-  onlineScene: 
-  offlineSceneLoadDelay: 0
-  transport: {fileID: 1775884847}
-  networkAddress: localhost
-  maxConnections: 100
-  disconnectInactiveConnections: 0
-  disconnectInactiveTimeout: 60
-  authenticator: {fileID: 0}
-  playerPrefab: {fileID: 5735145867069303583, guid: fea7cea75b2ee1348811c2fc627e17a8, type: 3}
-  autoCreatePlayer: 1
-  playerSpawnMethod: 0
-  spawnPrefabs:
-  - {fileID: 5348650875245485514, guid: 45284dfd40217954eb1d790f1b2f08ea, type: 3}
-  exceptionsDisconnect: 1
-  snapshotSettings:
-    bufferTimeMultiplier: 2
-    bufferLimit: 32
-    catchupNegativeThreshold: -1
-    catchupPositiveThreshold: 1
-    catchupSpeed: 0.019999999552965164
-    slowdownSpeed: 0.03999999910593033
-    driftEmaDuration: 1
-    dynamicAdjustment: 1
-    dynamicAdjustmentTolerance: 1
-    deliveryTimeEmaDuration: 2
-  evaluationMethod: 0
-  evaluationInterval: 3
-  timeInterpolationGui: 0
 --- !u!4 &1775884846
 Transform:
   m_ObjectHideFlags: 0
@@ -3020,6 +2932,56 @@ MonoBehaviour:
   debugLog: 0
   statisticsGUI: 0
   statisticsLog: 0
+--- !u!114 &1775884848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775884842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08d55c82a356faa47981266ed0868718, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 1
+  runInBackground: 1
+  headlessStartMode: 0
+  editorAutoStart: 0
+  sendRate: 60
+  offlineScene: 
+  onlineScene: 
+  offlineSceneLoadDelay: 0
+  transport: {fileID: 1775884847}
+  networkAddress: localhost
+  maxConnections: 100
+  disconnectInactiveConnections: 0
+  disconnectInactiveTimeout: 60
+  authenticator: {fileID: 0}
+  playerPrefab: {fileID: 5735145867069303583, guid: fea7cea75b2ee1348811c2fc627e17a8, type: 3}
+  autoCreatePlayer: 1
+  playerSpawnMethod: 1
+  spawnPrefabs:
+  - {fileID: 5348650875245485514, guid: 45284dfd40217954eb1d790f1b2f08ea, type: 3}
+  exceptionsDisconnect: 1
+  snapshotSettings:
+    bufferTimeMultiplier: 2
+    bufferLimit: 32
+    catchupNegativeThreshold: -1
+    catchupPositiveThreshold: 1
+    catchupSpeed: 0.019999999552965164
+    slowdownSpeed: 0.03999999910593033
+    driftEmaDuration: 1
+    dynamicAdjustment: 1
+    dynamicAdjustmentTolerance: 1
+    deliveryTimeEmaDuration: 2
+  evaluationMethod: 0
+  evaluationInterval: 3
+  timeInterpolationGui: 0
+  ServerName: Mai Server
+  ServerPublicPort: 7777
+  UpdateServerPeriodically: 0
+  UpdateServerPeriod: 5
 --- !u!1 &1834329572
 GameObject:
   m_ObjectHideFlags: 0
